@@ -3,26 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Emkay – OpenVoiceOS in your browser</title>
-<meta name="description" content="Emkay runs a stock OpenVoiceOS voice assistant in any browser – phone, tablet, TV or a Raspberry Pi in kiosk mode. Nothing to install.">
+<title>Emkay – a voice assistant on the phone or tablet you already have</title>
+<meta name="description" content="Emkay turns a phone, tablet, TV or Raspberry Pi into a full OpenVoiceOS voice assistant – open a web page and say “Hey Emkay”. Private by design, works with Home Assistant, nothing to install.">
 <meta name="theme-color" content="#05070a">
-<meta property="og:title" content="Emkay – OpenVoiceOS in your browser">
-<meta property="og:description" content="A stock OpenVoiceOS voice assistant in any browser. Nothing to install.">
+<meta property="og:title" content="Emkay – a voice assistant on the phone or tablet you already have">
+<meta property="og:description" content="A full OpenVoiceOS voice assistant in any browser. Private by design, nothing to install.">
 <meta property="og:image" content="https://emkay.ai/emkay.png">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <style>
   :root { --bg: #05070a; --card: #141b24; --ink: #fff; --muted: #8a96a8; --line: #232c38;
-          --accent: #22a7f0; --accent-strong: #1478c8; }
+          --accent: #22a7f0; --accent-strong: #1478c8; --soft: #c7d0dc; }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
          font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
   a { color: var(--accent); }
-  main { max-width: 960px; margin: 0 auto; padding: 0 22px 60px; }
+  main { max-width: 980px; margin: 0 auto; padding: 0 22px 60px; }
+
+  /* the language picker, top right */
+  .top { display: flex; justify-content: flex-end; padding-top: 14px; }
+  .top select { background: var(--card); color: var(--soft); border: 1px solid var(--line);
+                border-radius: 20px; padding: 6px 12px; font: inherit; font-size: 14px; }
 
   /* hero: the words on one side, a phone with the face on the other */
-  .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding: 56px 0 24px; }
+  .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding: 30px 0 24px; }
   h1 { font-weight: 300; letter-spacing: .3em; font-size: 46px; margin: 0; }
-  .tag { color: #c7d0dc; margin: 14px 0 28px; font-size: 21px; line-height: 1.45; }
+  .tag { color: var(--soft); margin: 14px 0 28px; font-size: 21px; line-height: 1.45; }
   .buttons { display: flex; flex-wrap: wrap; gap: 12px; }
   .open { display: inline-block; background: var(--accent); color: #fff; text-decoration: none;
           padding: 15px 34px; border-radius: 40px; font-size: 18px; }
@@ -31,7 +36,7 @@
   .open.ghost:hover { background: #253142; }
   .note { color: var(--muted); font-size: 14px; margin-top: 16px; }
   @media (max-width: 760px) {
-    .hero { grid-template-columns: 1fr; text-align: center; padding-top: 36px; }
+    .hero { grid-template-columns: 1fr; text-align: center; padding-top: 16px; }
     .buttons { justify-content: center; }
     .phone-wrap { order: -1; }
     .phone { width: 190px; }
@@ -48,19 +53,26 @@
   .phone .bars rect:nth-child(2n) { animation-delay: -.3s; }
   .phone .bars rect:nth-child(3n) { animation-delay: -.6s; }
   @keyframes bar { 0%, 100% { transform: scaleY(.4); } 50% { transform: scaleY(1.6); } }
-  .phone .bars, .phone .think { display: none; }
+  .phone .bars, .phone .shield { display: none; }
   .phone.listening .bars { display: inline; }
   .phone.listening .mouth { display: none; }
-  .phone .caption { font: 15px system-ui, sans-serif; fill: #c7d0dc; }
+  .phone.offline .shield { display: inline; }
+  .phone .caption { font: 15px system-ui, sans-serif; fill: var(--soft); }
   .phone .caption.said { fill: #fff; }
   @media (prefers-reduced-motion: reduce) { .phone .bars rect { animation: none; } }
 
-  h2 { font-weight: 500; font-size: 22px; margin: 42px 0 12px; }
+  h2 { font-weight: 500; font-size: 24px; margin: 48px 0 12px; }
+  .lead { color: var(--soft); margin: 0 0 16px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 4px 22px; }
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .cards.two { grid-template-columns: repeat(2, 1fr); }      /* four cards: 2 x 2 */
+  .cards.four { grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)); }  /* eight: 4 x 2 */
+  @media (max-width: 640px) { .cards.two { grid-template-columns: 1fr; } }
   .cards .card { padding: 16px 20px; }
   .cards h3 { margin: 0 0 6px; font-size: 17px; }
-  .cards p { margin: 0; color: #c7d0dc; font-size: 15px; }
+  .cards p { margin: 0; color: var(--soft); font-size: 15px; }
+  .cards .icon { font-size: 26px; line-height: 1; margin-bottom: 8px; }
+  .say { color: #fff; font-style: italic; }
   ol, ul { padding-left: 22px; }
   li { margin: 6px 0; }
   .langs { color: var(--muted); }
@@ -69,23 +81,32 @@
 </head>
 <body>
 <main>
+<div class="top">
+  <select id="lang" aria-label="Language"></select>
+</div>
+
 <section class="hero">
   <div>
     <h1>EMKAY</h1>
-    <p class="tag">A stock OpenVoiceOS voice assistant, running in your browser. Say "Hey Mycroft" – on your phone, tablet, TV or a Raspberry Pi.</p>
+    <p class="tag" data-t="tag"></p>
     <div class="buttons">
-      <a class="open" href="https://app.emkay.ai/">Open Emkay</a>
-      <a class="open ghost" href="https://store.emkay.ai/">Skill store</a>
+      <a class="open" href="https://app.emkay.ai/" data-t="open"></a>
+      <a class="open ghost" href="https://store.emkay.ai/" data-t="store"></a>
     </div>
-    <p class="note">Early alpha · free and open source · nothing to install</p>
+    <p class="note" data-t="note"></p>
   </div>
 
   <!-- the face, alive: rests, blinks, listens, thinks and answers (script below) -->
   <div class="phone-wrap">
-    <svg class="phone" id="phone" viewBox="0 0 250 500" role="img" aria-label="Emkay's face on a phone">
+    <svg class="phone" id="phone" viewBox="0 0 250 500" role="img" aria-label="Emkay">
       <rect x="2" y="2" width="246" height="496" rx="38" fill="#0d1116" stroke="#2a313b" stroke-width="3"/>
       <rect x="12" y="12" width="226" height="476" rx="30" fill="#05070a"/>
       <rect x="95" y="22" width="60" height="16" rx="8" fill="#0d1116"/>
+      <!-- the "offline" shield, as Emkay shows it in local only mode -->
+      <g class="shield" transform="translate(196 46)">
+        <path d="M14 0 L27 5 V14 C27 22 21 28 14 31 C7 28 1 22 1 14 V5 Z" fill="#1b2430" stroke="#22a7f0" stroke-width="2"/>
+        <path d="M8 15 l4 4 l8 -9" fill="none" stroke="#22a7f0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
       <g fill="none" stroke-linecap="round">
         <g class="eye"><circle cx="84" cy="190" r="27" stroke="#6d6d6d" stroke-width="13"/>
           <path d="M57 190a27 27 0 0 1 54 0" stroke="#f5f5f5" stroke-width="13"/></g>
@@ -97,86 +118,143 @@
           <rect x="119" y="258" width="7" height="18" rx="3.5"/><rect x="131" y="258" width="7" height="18" rx="3.5"/>
           <rect x="143" y="258" width="7" height="18" rx="3.5"/></g>
       </g>
-      <text id="caption" class="caption" x="125" y="400" text-anchor="middle"></text>
+      <text id="caption" class="caption" x="125" y="390" text-anchor="middle"></text>
+      <text id="caption2" class="caption" x="125" y="412" text-anchor="middle"></text>
     </svg>
   </div>
 </section>
 
-<h2>What it is</h2>
-<div class="card">
-  <p>Emkay is <a href="https://openvoiceos.org">OpenVoiceOS</a> – the open, privacy-minded
-  voice assistant – running entirely inside a web page, with the Mycroft Mark II face as its
-  screen. A phone, a tablet, a TV or a Raspberry Pi in kiosk mode becomes an assistant
-  without an app store, sideloading or setup on the command line.</p>
-  <p>"Emkay" is "MK" said out loud – a nod to Mycroft's Mark I and Mark II.</p>
+<h2 data-t="uses_h"></h2>
+<p class="lead" data-t="uses_lead"></p>
+<div class="cards two">
+  <div class="card"><div class="icon">📱</div><h3 data-t="use_phone_h"></h3><p data-t="use_phone_p"></p></div>
+  <div class="card"><div class="icon">🍳</div><h3 data-t="use_tablet_h"></h3><p data-t="use_tablet_p"></p></div>
+  <div class="card"><div class="icon">📺</div><h3 data-t="use_tv_h"></h3><p data-t="use_tv_p"></p></div>
+  <div class="card"><div class="icon">🏠</div><h3 data-t="use_home_h"></h3><p data-t="use_home_p"></p></div>
 </div>
 
-<h2>Get started</h2>
+<h2 data-t="privacy_h"></h2>
+<p class="lead" data-t="privacy_lead"></p>
+<div class="cards two">
+  <div class="card"><div class="icon">🛡️</div><h3 data-t="priv_offline_h"></h3><p data-t="priv_offline_p"></p></div>
+  <div class="card"><div class="icon">📋</div><h3 data-t="priv_log_h"></h3><p data-t="priv_log_p"></p></div>
+  <div class="card"><div class="icon">👂</div><h3 data-t="priv_ask_h"></h3><p data-t="priv_ask_p"></p></div>
+  <div class="card"><div class="icon">🔒</div><h3 data-t="priv_local_h"></h3><p data-t="priv_local_p"></p></div>
+</div>
+
+<h2 data-t="works_h"></h2>
+<div class="cards four">
+  <div class="card"><h3 data-t="w_ovos_h"></h3><p data-t="w_ovos_p"></p></div>
+  <div class="card"><h3 data-t="w_wake_h"></h3><p data-t="w_wake_p"></p></div>
+  <div class="card"><h3 data-t="w_ask_h"></h3><p data-t="w_ask_p"></p></div>
+  <div class="card"><h3 data-t="w_answers_h"></h3><p data-t="w_answers_p"></p></div>
+  <div class="card"><h3 data-t="w_panel_h"></h3><p data-t="w_panel_p"></p></div>
+  <div class="card"><h3 data-t="w_store_h"></h3><p data-t="w_store_p"></p></div>
+  <div class="card"><h3 data-t="w_hw_h"></h3><p data-t="w_hw_p"></p></div>
+  <div class="card"><h3 data-t="w_kiosk_h"></h3><p data-t="w_kiosk_p"></p></div>
+</div>
+<p class="langs" data-t="langs"></p>
+
+<h2 data-t="ha_h"></h2>
+<div class="card"><p data-t="ha_p"></p></div>
+
+<h2 data-t="start_h"></h2>
 <div class="card">
   <ol>
-    <li>Open <a href="https://app.emkay.ai/">app.emkay.ai</a>. The first start downloads
-      OpenVoiceOS and takes a few minutes; later starts are quicker.</li>
-    <li>Tap the screen when it says so – browsers only allow sound and the microphone after a tap.</li>
-    <li>Choose <b>Set up</b> to pick language, voice and more, or start with the defaults
-      (your phone's language and OpenVoiceOS' public speech servers).</li>
-    <li>Say <b>"Hey Mycroft"</b>, tap the face, or tap ⌨ to type. Everything else is under ⚙.</li>
-    <li>⚙ → <b>Install as app</b> puts Emkay on your home screen (on an iPhone: Share → Add to Home Screen).</li>
+    <li data-t="start_1"></li>
+    <li data-t="start_2"></li>
+    <li data-t="start_3"></li>
+    <li data-t="start_4"></li>
+    <li data-t="start_5"></li>
   </ol>
 </div>
 
-<h2>What works today</h2>
-<div class="cards">
-  <div class="card"><h3>OpenVoiceOS, unchanged</h3><p>OVOS core with the installer's default skills, the homescreen and the Mark II face, from the alpha channel.</p></div>
-  <div class="card"><h3>"Hey Mycroft"</h3><p>A wake word that runs in the browser, so it listens without a tap.</p></div>
-  <div class="card"><h3>Skills that ask back</h3><p>"Set an alarm" – "for when?" – "in five minutes". Follow-up questions work, as on a device.</p></div>
-  <div class="card"><h3>The control panel</h3><p>The stock OVOS control panel: settings, setup wizard, backups, installing skills and plugins.</p></div>
-  <div class="card"><h3>A skill store</h3><p><a href="https://store.emkay.ai/">store.emkay.ai</a>: OVOS skills for Emkay, by category, in your language, installed with one tap.</p></div>
-  <div class="card"><h3>The phone as hardware</h3><p>Volume, location, power, sensors (battery, network, screen, motion, light) and the camera.</p></div>
-</div>
-<p class="langs">Languages: English, Danish, German, French, Italian, Spanish, Galician,
-Catalan, Basque, Portuguese (Portugal and Brazil) and Dutch.</p>
-
-<h2>Privacy</h2>
+<h2 data-t="what_h"></h2>
 <div class="card">
-  <p>OpenVoiceOS runs in your browser, on your device. With the default setup, what you say is
-  sent to OpenVoiceOS' public speech-to-text and text-to-speech servers; the control panel
-  lets you choose others. Settings live in the browser's own storage on the device.</p>
+  <p data-t="what_p1"></p>
+  <p data-t="what_p2"></p>
 </div>
 
-<h2>Coming</h2>
+<h2 data-t="coming_h"></h2>
 <div class="card">
   <ul>
-    <li>Speech recognition and voices that run on the device itself.</li>
-    <li>A store that only offers skills tested to work in Emkay, also in the control panel.</li>
-    <li>HiveMind: a phone or tablet in every room as a satellite of one OpenVoiceOS in the house.</li>
+    <li data-t="coming_1"></li>
+    <li data-t="coming_2"></li>
+    <li data-t="coming_3"></li>
   </ul>
 </div>
 
 <footer>
-  <p><a href="https://github.com/emkay-voice/emkay">Source code</a> ·
-     <a href="https://store.emkay.ai/">Skill store</a> ·
+  <p><a href="https://github.com/emkay-voice/emkay" data-t="f_source"></a> ·
+     <a href="https://store.emkay.ai/" data-t="store"></a> ·
      <a href="https://openvoiceos.org">OpenVoiceOS</a> ·
-     <a href="https://github.com/OscillateLabsLLC/ovos-visage">ovos-visage</a> (the Mark II face)</p>
-  <p>Emkay is a community project built on OpenVoiceOS. Apache-2.0.</p>
+     <a href="https://github.com/OscillateLabsLLC/ovos-visage">ovos-visage</a></p>
+  <p data-t="f_note"></p>
 </footer>
 </main>
 
+<script src="texts.js"></script>
 <script>
+// The page's language: ?lang=, then the one picked before, then the
+// browser's; texts.js has every text (TEXTS[lang][key]), English as fallback.
+const LANGS = Object.keys(TEXTS);
+function pickLang() {
+  const q = new URLSearchParams(location.search).get("lang");
+  let saved = null;
+  try { saved = localStorage.getItem("emkay-site-lang"); } catch {}
+  for (const want of [q, saved, ...(navigator.languages || [navigator.language])]) {
+    if (!want) continue;
+    const w = want.toLowerCase();
+    const hit = LANGS.find((l) => l.toLowerCase() === w) || LANGS.find((l) => l.split("-")[0] === w.split("-")[0]);
+    if (hit) return hit;
+  }
+  return "en";
+}
+let lang = pickLang();
+const t = (key) => TEXTS[lang][key] ?? TEXTS.en[key];
+
+function render() {
+  document.documentElement.lang = lang;
+  document.title = t("title");
+  document.querySelector('meta[name="description"]').content = t("description");
+  // texts may hold <b>, <i class="say"> and links: they are ours, from texts.js
+  document.querySelectorAll("[data-t]").forEach((el) => { el.innerHTML = t(el.dataset.t); });
+}
+
+const picker = document.getElementById("lang");
+for (const l of LANGS) picker.append(new Option(TEXTS[l]._name, l));
+picker.value = lang;
+picker.onchange = () => {
+  lang = picker.value;
+  try { localStorage.setItem("emkay-site-lang", lang); } catch {}
+  render();
+};
+render();
+
 // The face on the phone: a little loop of what Emkay does - it rests and
-// blinks, hears "Hey Mycroft", listens, thinks, answers with a moving mouth,
-// smiles and sometimes winks. Plain SVG; nothing loads, nothing is sent.
+// blinks, hears "Hey Emkay", listens, thinks, answers with a moving mouth,
+// smiles and sometimes winks; once in a while it goes offline and shows its
+// shield. Plain SVG; nothing loads, nothing is sent.
 (() => {
   const phone = document.getElementById("phone");
   const mouth = document.getElementById("mouth");
-  const caption = document.getElementById("caption");
+  const lines = [document.getElementById("caption"), document.getElementById("caption2")];
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const SMILE = "M93 262 Q125 284 157 262";
   const BIG_SMILE = "M90 258 Q125 296 160 258";
-  // an open mouth of height h (0 = closed), as one closed path
   const open = (h) => `M97 264 Q125 ${264 + h} 153 264 Q125 ${264 + h * 0.35} 97 264 Z`;
-  const say = (text, cls = "") => { caption.textContent = text; caption.setAttribute("class", "caption " + cls); };
-  const state = (s) => phone.setAttribute("class", "phone " + s);
+  // a caption in up to two lines of about 26 characters
+  const say = (text, cls = "") => {
+    const words = text.split(" "), out = [""];
+    for (const w of words) {
+      if ((out.at(-1) + " " + w).trim().length > 26 && out.length < 2) out.push("");
+      out[out.length - 1] = (out.at(-1) + " " + w).trim();
+    }
+    lines.forEach((el, i) => { el.textContent = out[i] || ""; el.setAttribute("class", "caption " + cls); });
+  };
+  let offline = false;
+  const state = (s) => phone.setAttribute("class", "phone " + s + (offline ? " offline" : ""));
 
   let blinking = true;
   (async function blink() {   // blinks on its own, every 2.5-6 s
@@ -188,13 +266,6 @@ Catalan, Basque, Portuguese (Portugal and Brazil) and Dutch.</p>
       phone.classList.remove("blink");
     }
   })();
-
-  const dialogues = [
-    ["Hey Mycroft, what time is it?", "It's ten past eight."],
-    ["Hey Mycroft, tell me a joke", "I'm reading a book on anti-gravity…"],
-    ["Hey Mycroft, set a timer for 5 minutes", "Timer set for five minutes."],
-    ["Hey Mycroft, what's the weather like?", "Sunny and nineteen degrees."],
-  ];
 
   async function talk(text, ms) {
     say(text);
@@ -208,16 +279,18 @@ Catalan, Basque, Portuguese (Portugal and Brazil) and Dutch.</p>
 
   async function loop() {
     if (still) { say(""); return; }
-    for (let i = 0; ; i = (i + 1) % dialogues.length) {
-      const [q, a] = dialogues[i];
+    for (let i = 0; ; i++) {
+      const dialogues = t("dialogues");
+      const [q, a, go] = dialogues[i % dialogues.length];
       state(""); say(""); mouth.setAttribute("d", SMILE);
       await sleep(2600);
       state("listening"); say(`“${q}”`, "said");
-      await sleep(2400);
+      await sleep(2600);
       state("thinking"); blinking = false; say("");
       await sleep(900);
+      if (go !== undefined) offline = go;   // "go offline" / "go online"
       state(""); blinking = true;
-      await talk(a, 2200);
+      await talk(a, 2400);
       say("");
       state("happy"); mouth.setAttribute("d", BIG_SMILE);
       await sleep(1100);
