@@ -76,6 +76,7 @@
   ol, ul { padding-left: 22px; }
   li { margin: 6px 0; }
   .langs { color: var(--muted); }
+  .card.home .open { margin: 4px 0 8px; }
   footer { color: var(--muted); font-size: 14px; text-align: center; margin-top: 56px; }
 </style>
 </head>
@@ -92,7 +93,6 @@
     <div class="buttons">
       <a class="open" href="https://app.emkay.ai/" data-t="open"></a>
       <a class="open ghost" href="https://store.emkay.ai/" data-t="store"></a>
-      <a class="open ghost" href="home/">Emkay Home</a>
     </div>
     <p class="note" data-t="note"></p>
   </div>
@@ -125,6 +125,12 @@
   </div>
 </section>
 
+<h2 data-t="what_h"></h2>
+<div class="card">
+  <p data-t="what_p1"></p>
+  <p data-t="what_p2"></p>
+</div>
+
 <h2 data-t="uses_h"></h2>
 <p class="lead" data-t="uses_lead"></p>
 <div class="cards two">
@@ -156,9 +162,6 @@
 </div>
 <p class="langs" data-t="langs"></p>
 
-<h2 data-t="ha_h"></h2>
-<div class="card"><p data-t="ha_p"></p></div>
-
 <h2 data-t="start_h"></h2>
 <div class="card">
   <ol>
@@ -170,19 +173,15 @@
   </ol>
 </div>
 
-<h2 data-t="what_h"></h2>
-<div class="card">
-  <p data-t="what_p1"></p>
-  <p data-t="what_p2"></p>
-</div>
+<h2 data-t="ha_h"></h2>
+<div class="card"><p data-t="ha_p"></p></div>
 
-<h2 data-t="coming_h"></h2>
-<div class="card">
-  <ul>
-    <li data-t="coming_1"></li>
-    <li data-t="coming_2"></li>
-    <li data-t="coming_3"></li>
-  </ul>
+<!-- Emkay Home: the OpenVoiceOS for the house, with the Emkays as its
+     satellites; its own start page is home/ -->
+<h2 data-t="home_h"></h2>
+<div class="card home">
+  <p data-t="home_p"></p>
+  <p><a class="open" href="home/" data-t="home_btn"></a></p>
 </div>
 
 <footer>
