@@ -72,6 +72,14 @@
   li { margin: 8px 0; }
   code.inline { font: 15px ui-monospace, Menlo, Consolas, monospace; background: var(--code);
                 border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; color: #fff; }
+  /* the Linux families, as small tiles with a tick */
+  .distros { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+  .distro { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px 10px 38px;
+            position: relative; }
+  .distro::before { content: "✓"; position: absolute; left: 14px; top: 10px; color: #3ccf8e; font-weight: 700; }
+  .distro b { display: block; font-weight: 600; font-size: 15px; }
+  .distro span { color: var(--muted); font-size: 13px; }
+  .note.left { margin: 12px 0 0; max-width: none; }
   footer { color: var(--muted); font-size: 14px; text-align: center; margin-top: 56px; }
 </style>
 </head>
@@ -111,6 +119,25 @@
     <li data-t="need_4"></li>
   </ul>
 </div>
+
+<!-- Which Linux: the families the installer knows, each tested every week
+     by emkay-home's .github/workflows/distros.yml (keep the two in step).
+     The names are names – not translated; no logos (each has its own
+     trademark rules). -->
+<h2 data-t="distros_h"></h2>
+<p class="lead" data-t="distros_lead"></p>
+<div class="distros">
+  <div class="distro"><b>Debian</b><span>12 · 13</span></div>
+  <div class="distro"><b>Raspberry Pi OS</b><span>64-bit · Pi 4 / 5</span></div>
+  <div class="distro"><b>Ubuntu</b><span>24.04 · x86_64 + arm64</span></div>
+  <div class="distro"><b>Linux Mint · Pop!_OS</b><span>Mint 22</span></div>
+  <div class="distro"><b>Fedora</b><span>latest</span></div>
+  <div class="distro"><b>RHEL · Rocky · AlmaLinux</b><span>Rocky 9 · AlmaLinux 9</span></div>
+  <div class="distro"><b>Arch · Manjaro · EndeavourOS</b><span>Arch · Manjaro</span></div>
+  <div class="distro"><b>openSUSE</b><span>Tumbleweed · Leap 15</span></div>
+  <div class="distro"><b>Alpine</b><span>OpenRC</span></div>
+</div>
+<p class="note left" data-t="distros_other"></p>
 
 <h2 data-t="start_h"></h2>
 <div class="card">
