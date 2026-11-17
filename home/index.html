@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emkay Home – the OpenVoiceOS for your house</title>
+<meta name="description" content="Emkay Home is the OpenVoiceOS for the house: one line in a terminal sets it up on a Raspberry Pi, an old PC or a Proxmox container, and your phones and tablets with Emkay become its satellites.">
+<meta name="theme-color" content="#05070a">
+<meta property="og:title" content="Emkay Home – the OpenVoiceOS for your house">
+<meta property="og:description" content="One line sets it up; a QR code adds a phone. Private: its own certificate, nothing via the internet.">
+<meta property="og:image" content="https://emkay.ai/emkay.png">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<!--
+  Emkay Home's start page on emkay.ai (emkay.ai/home/): what it is, what you
+  need, the one line that installs it (emkay.ai/home.sh → the installer in
+  emkay-voice/emkay-home), and what happens next.
+
+  The same look and the same language picker as emkay.ai's front page (and
+  the same remembered language, "emkay-site-lang"). Every text is in
+  home/texts.js, in Emkay's twelve languages; an element shows the text of
+  its data-t key. To add a section: add the markup here with data-t keys,
+  and the keys in texts.js (English is the fallback).
+-->
+<style>
+  :root { --bg: #05070a; --card: #141b24; --ink: #fff; --muted: #8a96a8; --line: #232c38;
+          --accent: #22a7f0; --accent-strong: #1478c8; --soft: #c7d0dc; --code: #0c1118; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  a { color: var(--accent); }
+  main { max-width: 980px; margin: 0 auto; padding: 0 22px 60px; }
+
+  .top { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; }
+  .top a { color: var(--soft); text-decoration: none; font-size: 15px; }
+  .top select { background: var(--card); color: var(--soft); border: 1px solid var(--line);
+                border-radius: 20px; padding: 6px 12px; font: inherit; font-size: 14px; }
+
+  /* hero: the face, the name, the one line */
+  .hero { text-align: center; padding: 34px 0 10px; }
+  .hero img { width: 92px; height: 92px; }
+  h1 { font-weight: 300; letter-spacing: .3em; font-size: 42px; margin: 10px 0 0; }
+  h1 small { display: block; letter-spacing: .55em; font-size: 15px; color: var(--muted); margin-top: 6px; }
+  .tag { color: var(--soft); margin: 18px auto 26px; font-size: 21px; line-height: 1.45; max-width: 700px; }
+
+  /* the one line, with a copy button */
+  .cmd { display: flex; align-items: center; gap: 10px; max-width: 640px; margin: 0 auto;
+         background: var(--code); border: 1px solid var(--line); border-radius: 14px; padding: 10px 10px 10px 18px; }
+  .cmd code { flex: 1; text-align: left; font: 16px/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+              color: #fff; overflow-x: auto; white-space: nowrap; }
+  .cmd code .p { color: var(--muted); user-select: none; }
+  .cmd button { background: var(--accent); color: #fff; border: 0; border-radius: 30px; padding: 9px 18px;
+                font: inherit; font-size: 15px; cursor: pointer; white-space: nowrap; }
+  .cmd button:hover { background: var(--accent-strong); }
+  .note { color: var(--muted); font-size: 14px; margin: 14px auto 0; max-width: 640px; }
+
+  h2 { font-weight: 500; font-size: 24px; margin: 48px 0 12px; }
+  .lead { color: var(--soft); margin: 0 0 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 4px 22px; }
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (max-width: 640px) {
+    .cards { grid-template-columns: 1fr; }
+    /* on a phone the line wraps and the button goes under it – no scrollbar */
+    .cmd { flex-direction: column; align-items: stretch; padding: 14px; }
+    .cmd code { white-space: normal; word-break: break-all; font-size: 14px; }
+  }
+  .cards .card { padding: 16px 20px; }
+  .cards h3 { margin: 0 0 6px; font-size: 17px; }
+  .cards p { margin: 0; color: var(--soft); font-size: 15px; }
+  .cards .icon { font-size: 26px; line-height: 1; margin-bottom: 8px; }
+  .say { color: #fff; font-style: italic; }
+  ol, ul { padding-left: 22px; }
+  li { margin: 8px 0; }
+  code.inline { font: 15px ui-monospace, Menlo, Consolas, monospace; background: var(--code);
+                border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; color: #fff; }
+  footer { color: var(--muted); font-size: 14px; text-align: center; margin-top: 56px; }
+</style>
+</head>
+<body>
+<main>
+<div class="top">
+  <a href="../" data-t="back"></a>
+  <select id="lang" aria-label="Language"></select>
+</div>
+
+<section class="hero">
+  <img src="../icon.svg" alt="">
+  <h1>EMKAY<small>HOME</small></h1>
+  <p class="tag" data-t="tag"></p>
+  <div class="cmd">
+    <code><span class="p">$ </span><span id="cmd">curl -fsSL https://emkay.ai/home.sh | bash</span></code>
+    <button id="copy" data-t="copy"></button>
+  </div>
+  <p class="note" data-t="cmd_note"></p>
+</section>
+
+<h2 data-t="what_h"></h2>
+<p class="lead" data-t="what_lead"></p>
+<div class="cards">
+  <div class="card"><div class="icon">🏠</div><h3 data-t="w_house_h"></h3><p data-t="w_house_p"></p></div>
+  <div class="card"><div class="icon">📱</div><h3 data-t="w_pair_h"></h3><p data-t="w_pair_p"></p></div>
+  <div class="card"><div class="icon">🔒</div><h3 data-t="w_private_h"></h3><p data-t="w_private_p"></p></div>
+  <div class="card"><div class="icon">🌍</div><h3 data-t="w_langs_h"></h3><p data-t="w_langs_p"></p></div>
+</div>
+
+<h2 data-t="need_h"></h2>
+<div class="card">
+  <ul>
+    <li data-t="need_1"></li>
+    <li data-t="need_2"></li>
+    <li data-t="need_3"></li>
+    <li data-t="need_4"></li>
+  </ul>
+</div>
+
+<h2 data-t="start_h"></h2>
+<div class="card">
+  <ol>
+    <li data-t="start_1"></li>
+    <li data-t="start_2"></li>
+    <li data-t="start_3"></li>
+    <li data-t="start_4"></li>
+    <li data-t="start_5"></li>
+  </ol>
+</div>
+
+<h2 data-t="more_h"></h2>
+<div class="cards">
+  <div class="card"><h3 data-t="lxc_h"></h3><p data-t="lxc_p"></p></div>
+  <div class="card"><h3 data-t="docker_h"></h3><p data-t="docker_p"></p></div>
+  <div class="card"><h3 data-t="update_h"></h3><p data-t="update_p"></p></div>
+  <div class="card"><h3 data-t="ha_h"></h3><p data-t="ha_p"></p></div>
+</div>
+
+<footer>
+  <p><a href="https://github.com/emkay-voice/emkay-home" data-t="f_source"></a> ·
+     <a href="../">emkay.ai</a> ·
+     <a href="https://openvoiceos.org">OpenVoiceOS</a> ·
+     <a href="https://github.com/JarbasHiveMind/HiveMind-core">HiveMind</a></p>
+  <p data-t="f_note"></p>
+</footer>
+</main>
+
+<script src="texts.js"></script>
+<script>
+// The page's language, as on the front page: ?lang=, then the one picked
+// before (shared with the front page), then the browser's; English as fallback.
+const LANGS = Object.keys(TEXTS);
+function pickLang() {
+  const q = new URLSearchParams(location.search).get("lang");
+  let saved = null;
+  try { saved = localStorage.getItem("emkay-site-lang"); } catch {}
+  for (const want of [q, saved, ...(navigator.languages || [navigator.language])]) {
+    if (!want) continue;
+    const w = want.toLowerCase();
+    const hit = LANGS.find((l) => l.toLowerCase() === w) || LANGS.find((l) => l.split("-")[0].toLowerCase() === w.split("-")[0]);
+    if (hit) return hit;
+  }
+  return "en";
+}
+let lang = pickLang();
+const t = (key) => TEXTS[lang][key] ?? TEXTS.en[key];
+
+function render() {
+  document.documentElement.lang = lang;
+  document.title = t("title");
+  document.querySelector('meta[name="description"]').content = t("description");
+  // texts may hold <b>, <code> and links: they are ours, from texts.js
+  document.querySelectorAll("[data-t]").forEach((el) => { el.innerHTML = t(el.dataset.t); });
+}
+
+const picker = document.getElementById("lang");
+for (const l of LANGS) picker.append(new Option(TEXTS[l]._name, l));
+picker.value = lang;
+picker.onchange = () => {
+  lang = picker.value;
+  try { localStorage.setItem("emkay-site-lang", lang); } catch {}
+  render();
+};
+render();
+
+// Copy the one line (and say so for a moment).
+document.getElementById("copy").onclick = async (e) => {
+  try {
+    await navigator.clipboard.writeText(document.getElementById("cmd").textContent);
+    e.target.textContent = t("copied");
+    setTimeout(() => { e.target.textContent = t("copy"); }, 1800);
+  } catch {}
+};
+</script>
+</body>
+</html>
