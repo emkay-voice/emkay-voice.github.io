@@ -99,6 +99,7 @@
                               table.cli tr { display: block; padding: 8px 0; border-top: 1px solid var(--line); } }
   /* the recording of the installer (asciinema-player) */
   #rec { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #000; }
+  h3.sub { font-weight: 500; font-size: 19px; margin: 26px 0 10px; }
   footer { color: var(--muted); font-size: 14px; text-align: center; margin-top: 56px; }
 </style>
 </head>
@@ -216,12 +217,33 @@
   </table>
 </div>
 
+<!-- Home Assistant: the OpenVoiceOS integration (andlo/ha-ovos-integration)
+     and the house page's Home Assistant card (emkay-home's emkay_home/ha.py) -->
+<h2 data-t="hai_h"></h2>
+<p class="lead" data-t="hai_lead"></p>
+<div class="cards">
+  <div class="card"><div class="icon">🏠</div><h3 data-t="hai_house_h"></h3><p data-t="hai_house_p"></p></div>
+  <div class="card"><div class="icon">📱</div><h3 data-t="hai_emkays_h"></h3><p data-t="hai_emkays_p"></p></div>
+  <div class="card"><div class="icon">💡</div><h3 data-t="hai_voice_h"></h3><p data-t="hai_voice_p"></p></div>
+  <div class="card"><div class="icon">🔐</div><h3 data-t="hai_safe_h"></h3><p data-t="hai_safe_p"></p></div>
+</div>
+<h3 class="sub" data-t="hai_steps_h"></h3>
+<div class="card">
+  <ol>
+    <li data-t="hai_1"></li>
+    <li data-t="hai_2"></li>
+    <li data-t="hai_3"></li>
+    <li data-t="hai_4"></li>
+  </ol>
+</div>
+<p class="note left" data-t="hai_note"></p>
+
 <h2 data-t="more_h"></h2>
 <div class="cards">
   <div class="card"><h3 data-t="lxc_h"></h3><p data-t="lxc_p"></p></div>
   <div class="card"><h3 data-t="docker_h"></h3><p data-t="docker_p"></p></div>
   <div class="card"><h3 data-t="update_h"></h3><p data-t="update_p"></p></div>
-  <div class="card"><h3 data-t="ha_h"></h3><p data-t="ha_p"></p></div>
+  <div class="card"><h3 data-t="speech_h"></h3><p data-t="speech_p"></p></div>
 </div>
 
 <footer>
