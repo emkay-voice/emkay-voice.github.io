@@ -21,6 +21,7 @@
   its data-t key. To add a section: add the markup here with data-t keys,
   and the keys in texts.js (English is the fallback).
 -->
+<link rel="stylesheet" href="asciinema-player/asciinema-player.css">
 <style>
   :root { --bg: #05070a; --card: #141b24; --ink: #fff; --muted: #8a96a8; --line: #232c38;
           --accent: #22a7f0; --accent-strong: #1478c8; --soft: #c7d0dc; --code: #0c1118; }
@@ -80,6 +81,15 @@
   .distro b { display: block; font-weight: 600; font-size: 15px; }
   .distro span { color: var(--muted); font-size: 13px; }
   .note.left { margin: 12px 0 0; max-width: none; }
+  /* the emkay-home command and the line's options: command | what it does */
+  table.cli { width: 100%; border-collapse: collapse; }
+  table.cli td { padding: 10px 0; border-top: 1px solid var(--line); vertical-align: top; color: var(--soft); font-size: 15px; }
+  table.cli tr:first-child td { border-top: 0; }
+  table.cli td:first-child { white-space: nowrap; padding-right: 18px; width: 1%; }
+  @media (max-width: 640px) { table.cli td { display: block; padding: 4px 0; border: 0; }
+                              table.cli tr { display: block; padding: 8px 0; border-top: 1px solid var(--line); } }
+  /* the recording of the installer (asciinema-player) */
+  #rec { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #000; }
   footer { color: var(--muted); font-size: 14px; text-align: center; margin-top: 56px; }
 </style>
 </head>
@@ -150,6 +160,39 @@
   </ol>
 </div>
 
+<!-- A recording of the installer on a fresh machine (asciinema; made by
+     emkay-home's .github/workflows/record.yml – install-<lang>.cast here,
+     English for a language without its own) -->
+<h2 data-t="rec_h"></h2>
+<p class="lead" data-t="rec_lead"></p>
+<div id="rec"></div>
+
+<!-- The emkay-home command (emkay-home's install/emkay-home) and the
+     installer's options (install/home.sh) – keep these in step with them -->
+<h2 data-t="cli_h"></h2>
+<p class="lead" data-t="cli_lead"></p>
+<div class="card">
+  <table class="cli">
+    <tr><td><code class="inline">emkay-home</code></td><td data-t="cli_status"></td></tr>
+    <tr><td><code class="inline">emkay-home update</code></td><td data-t="cli_update"></td></tr>
+    <tr><td><code class="inline">emkay-home logs</code></td><td data-t="cli_logs"></td></tr>
+    <tr><td><code class="inline">emkay-home restart</code></td><td data-t="cli_restart"></td></tr>
+    <tr><td><code class="inline">emkay-home start</code> · <code class="inline">stop</code></td><td data-t="cli_startstop"></td></tr>
+    <tr><td><code class="inline">emkay-home uninstall</code></td><td data-t="cli_uninstall"></td></tr>
+  </table>
+</div>
+
+<h2 data-t="opt_h"></h2>
+<p class="lead" data-t="opt_lead"></p>
+<div class="card">
+  <table class="cli">
+    <tr><td><code class="inline">--http-port 8080 --https-port 8443</code></td><td data-t="opt_ports"></td></tr>
+    <tr><td><code class="inline">--dir /srv/emkay-home</code></td><td data-t="opt_dir"></td></tr>
+    <tr><td><code class="inline">--lang da</code></td><td data-t="opt_lang"></td></tr>
+    <tr><td><code class="inline">EMKAY_HOME_BUILD=1 bash</code></td><td data-t="opt_build"></td></tr>
+  </table>
+</div>
+
 <h2 data-t="more_h"></h2>
 <div class="cards">
   <div class="card"><h3 data-t="lxc_h"></h3><p data-t="lxc_p"></p></div>
@@ -168,6 +211,7 @@
 </main>
 
 <script src="texts.js"></script>
+<script src="asciinema-player/asciinema-player.min.js"></script>
 <script>
 // The page's language, as on the front page: ?lang=, then the one picked
 // before (shared with the front page), then the browser's; English as fallback.
@@ -202,8 +246,26 @@ picker.onchange = () => {
   lang = picker.value;
   try { localStorage.setItem("emkay-site-lang", lang); } catch {}
   render();
+  recording();
 };
 render();
+
+// The installer, recorded (asciinema-player, Apache-2.0, in asciinema-player/):
+// the page's language where there is a recording in it, else English.
+const CASTS = ["en", "da"];
+let shown = null;
+function recording() {
+  const want = CASTS.includes(lang.split("-")[0]) ? lang.split("-")[0] : "en";
+  if (want === shown || !window.AsciinemaPlayer) return;
+  shown = want;
+  const box = document.getElementById("rec");
+  box.replaceChildren();
+  AsciinemaPlayer.create(`install-${want}.cast`, box, {
+    fit: "width", idleTimeLimit: 2, poster: "npt:9:59", theme: "asciinema",
+    terminalFontFamily: 'ui-monospace, "SF Mono", Menlo, Consolas, monospace',
+  });
+}
+recording();
 
 // Copy the one line (and say so for a moment).
 document.getElementById("copy").onclick = async (e) => {
