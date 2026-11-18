@@ -46,7 +46,7 @@ TEXTS.en = {
   update_h: "Updating and removing",
   update_p: "Run the same line again to update – your settings and paired Emkays are kept. <code class=\"inline\">… | bash -s -- --uninstall</code> removes it, and asks before deleting any data.",
   ha_h: "Have Home Assistant?",
-  ha_p: "A Home Assistant add-on for Emkay Home is on the way. And Emkay can already control your Home Assistant with the Home Assistant skill.",
+  ha_p: "On the house page, under <b>Home Assistant</b>: log in on Home Assistant's own page, and the house and every Emkay become devices there (<a href=\"https://github.com/andlo/ha-ovos-integration\">OpenVoiceOS integration</a>) – each Emkay with its own volume, listening on and off and “say”, and lights and heating by voice from every room. A Home Assistant add-on for Emkay Home is on the way.",
   f_source: "Emkay Home on GitHub",
   f_note: "Emkay Home is early alpha, free and open source (Apache 2.0) – OpenVoiceOS and HiveMind, unchanged, with a page on top.",
 };
@@ -92,7 +92,7 @@ TEXTS.da = {
   update_h: "Opdatering og fjernelse",
   update_p: "Kør den samme linje igen for at opdatere – dine indstillinger og parrede Emkays bliver. <code class=\"inline\">… | bash -s -- --uninstall</code> fjerner det og spørger, før der slettes data.",
   ha_h: "Har du Home Assistant?",
-  ha_p: "En Home Assistant-add-on til Emkay Home er på vej. Og Emkay kan allerede styre din Home Assistant med Home Assistant-skillen.",
+  ha_p: "På husets side, under <b>Home Assistant</b>: log ind på Home Assistants egen side, så bliver huset og hver Emkay enheder dér (<a href=\"https://github.com/andlo/ha-ovos-integration\">OpenVoiceOS-integrationen</a>) – hver Emkay med sin egen lydstyrke, lytning til og fra og “sig”, og lys og varme med stemmen fra alle rum. Et Home Assistant-add-on til Emkay Home er på vej.",
   f_source: "Emkay Home på GitHub",
   f_note: "Emkay Home er tidlig alfa, gratis og open source (Apache 2.0) – OpenVoiceOS og HiveMind, uændret, med en side ovenpå.",
 };
@@ -138,7 +138,7 @@ TEXTS.de = {
   update_h: "Aktualisieren und entfernen",
   update_p: "Dieselbe Zeile noch einmal ausführen aktualisiert – deine Einstellungen und gekoppelten Emkays bleiben. <code class=\"inline\">… | bash -s -- --uninstall</code> entfernt es und fragt, bevor Daten gelöscht werden.",
   ha_h: "Home Assistant im Haus?",
-  ha_p: "Ein Home-Assistant-Add-on für Emkay Home ist unterwegs. Und Emkay kann deinen Home Assistant schon jetzt mit dem Home-Assistant-Skill steuern.",
+  ha_p: "Auf der Seite des Hauses, unter <b>Home Assistant</b>: auf der eigenen Seite von Home Assistant anmelden, und das Haus und jedes Emkay werden dort zu Geräten (<a href=\"https://github.com/andlo/ha-ovos-integration\">OpenVoiceOS-Integration</a>) – jedes Emkay mit eigener Lautstärke, Zuhören an und aus und „Sagen“, und Licht und Heizung per Stimme aus jedem Zimmer. Ein Home-Assistant-Add-on für Emkay Home ist unterwegs.",
   f_source: "Emkay Home auf GitHub",
   f_note: "Emkay Home ist eine frühe Alpha, frei und quelloffen (Apache 2.0) – OpenVoiceOS und HiveMind, unverändert, mit einer Seite obendrauf.",
 };
@@ -184,7 +184,7 @@ TEXTS.nl = {
   update_h: "Bijwerken en verwijderen",
   update_p: "Voer dezelfde regel opnieuw uit om bij te werken – je instellingen en gekoppelde Emkays blijven. <code class=\"inline\">… | bash -s -- --uninstall</code> verwijdert het en vraagt eerst voordat er gegevens gewist worden.",
   ha_h: "Heb je Home Assistant?",
-  ha_p: "Een Home Assistant-add-on voor Emkay Home is onderweg. En Emkay kan je Home Assistant nu al bedienen met de Home Assistant-skill.",
+  ha_p: "Op de pagina van het huis, onder <b>Home Assistant</b>: log in op de eigen pagina van Home Assistant, en het huis en elke Emkay worden daar apparaten (<a href=\"https://github.com/andlo/ha-ovos-integration\">OpenVoiceOS-integratie</a>) – elke Emkay met een eigen volume, luisteren aan en uit en “zeg”, en licht en verwarming met je stem vanuit elke kamer. Een Home Assistant-add-on voor Emkay Home komt eraan.",
   f_source: "Emkay Home op GitHub",
   f_note: "Emkay Home is vroege alfa, vrij en open source (Apache 2.0) – OpenVoiceOS en HiveMind, ongewijzigd, met een pagina erbovenop.",
 };
@@ -230,7 +230,7 @@ TEXTS.fr = {
   update_h: "Mettre à jour et retirer",
   update_p: "Relancez la même ligne pour mettre à jour – vos réglages et Emkay appairés sont gardés. <code class=\"inline\">… | bash -s -- --uninstall</code> le retire et demande avant de supprimer des données.",
   ha_h: "Vous avez Home Assistant ?",
-  ha_p: "Un module complémentaire Home Assistant pour Emkay Home est en route. Et Emkay pilote déjà votre Home Assistant avec la skill Home Assistant.",
+  ha_p: "Sur la page de la maison, sous <b>Home Assistant</b> : connectez-vous sur la page de Home Assistant, et la maison et chaque Emkay y deviennent des appareils (<a href=\"https://github.com/andlo/ha-ovos-integration\">intégration OpenVoiceOS</a>) – chaque Emkay avec son volume, l'écoute activée ou non et « dire », et lumières et chauffage à la voix depuis chaque pièce. Un module complémentaire Home Assistant pour Emkay Home arrive.",
   f_source: "Emkay Home sur GitHub",
   f_note: "Emkay Home est en alpha précoce, libre et open source (Apache 2.0) – OpenVoiceOS et HiveMind, inchangés, avec une page par-dessus.",
 };
@@ -276,7 +276,7 @@ TEXTS.es = {
   update_h: "Actualizar y quitar",
   update_p: "Ejecuta la misma línea otra vez para actualizar – tus ajustes y Emkay emparejados se conservan. <code class=\"inline\">… | bash -s -- --uninstall</code> lo quita y pregunta antes de borrar datos.",
   ha_h: "¿Tienes Home Assistant?",
-  ha_p: "Viene en camino un complemento de Home Assistant para Emkay Home. Y Emkay ya puede controlar tu Home Assistant con la skill de Home Assistant.",
+  ha_p: "En la página de la casa, en <b>Home Assistant</b>: inicia sesión en la propia página de Home Assistant, y la casa y cada Emkay pasan a ser dispositivos allí (<a href=\"https://github.com/andlo/ha-ovos-integration\">integración OpenVoiceOS</a>), cada Emkay con su volumen, escucha activada o desactivada y «decir», y luces y calefacción con la voz desde cada habitación. Un complemento de Home Assistant para Emkay Home está en camino.",
   f_source: "Emkay Home en GitHub",
   f_note: "Emkay Home está en alfa temprana, es libre y de código abierto (Apache 2.0) – OpenVoiceOS y HiveMind, sin cambios, con una página encima.",
 };
@@ -322,7 +322,7 @@ TEXTS.it = {
   update_h: "Aggiornare e rimuovere",
   update_p: "Esegui di nuovo la stessa riga per aggiornare – impostazioni ed Emkay abbinati restano. <code class=\"inline\">… | bash -s -- --uninstall</code> lo rimuove e chiede prima di cancellare dati.",
   ha_h: "Hai Home Assistant?",
-  ha_p: "Un add-on di Home Assistant per Emkay Home è in arrivo. E Emkay può già comandare il tuo Home Assistant con la skill Home Assistant.",
+  ha_p: "Sulla pagina della casa, sotto <b>Home Assistant</b>: accedi sulla pagina di Home Assistant, e la casa e ogni Emkay diventano dispositivi lì (<a href=\"https://github.com/andlo/ha-ovos-integration\">integrazione OpenVoiceOS</a>), ogni Emkay con il suo volume, ascolto attivo o no e «di'», e luci e riscaldamento con la voce da ogni stanza. Un componente aggiuntivo di Home Assistant per Emkay Home è in arrivo.",
   f_source: "Emkay Home su GitHub",
   f_note: "Emkay Home è in alfa iniziale, libero e open source (Apache 2.0) – OpenVoiceOS e HiveMind, invariati, con una pagina sopra.",
 };
@@ -368,7 +368,7 @@ TEXTS["pt-BR"] = {
   update_h: "Atualizar e remover",
   update_p: "Execute a mesma linha de novo para atualizar – suas configurações e Emkays pareados ficam. <code class=\"inline\">… | bash -s -- --uninstall</code> remove e pergunta antes de apagar dados.",
   ha_h: "Tem Home Assistant?",
-  ha_p: "Um add-on do Home Assistant para o Emkay Home está a caminho. E o Emkay já controla o seu Home Assistant com a skill do Home Assistant.",
+  ha_p: "Na página da casa, em <b>Home Assistant</b>: entre na própria página do Home Assistant, e a casa e cada Emkay viram dispositivos lá (<a href=\"https://github.com/andlo/ha-ovos-integration\">integração OpenVoiceOS</a>), cada Emkay com seu volume, escuta ligada ou desligada e “dizer”, e luzes e aquecimento pela voz de qualquer cômodo. Um add-on do Home Assistant para o Emkay Home está a caminho.",
   f_source: "Emkay Home no GitHub",
   f_note: "O Emkay Home é alfa inicial, livre e de código aberto (Apache 2.0) – OpenVoiceOS e HiveMind, sem mudanças, com uma página por cima.",
 };
@@ -400,7 +400,7 @@ TEXTS["pt-PT"] = {
   docker_h: "Já tem Docker?",
   docker_p: "Então o instalador usa-o. Ou à mão: <a href=\"https://github.com/emkay-voice/emkay-home\">clone o repositório</a> e <code class=\"inline\">docker compose up -d</code> em <code class=\"inline\">compose/</code>.",
   update_p: "Execute a mesma linha outra vez para atualizar – as suas definições e Emkays emparelhados ficam. <code class=\"inline\">… | bash -s -- --uninstall</code> remove-o e pergunta antes de apagar dados.",
-  ha_p: "Está a caminho um add-on do Home Assistant para o Emkay Home. E o Emkay já controla o seu Home Assistant com a skill do Home Assistant.",
+  ha_p: "Na página da casa, em <b>Home Assistant</b>: inicie sessão na própria página do Home Assistant, e a casa e cada Emkay passam a ser dispositivos lá (<a href=\"https://github.com/andlo/ha-ovos-integration\">integração OpenVoiceOS</a>), cada Emkay com o seu volume, escuta ligada ou desligada e «dizer», e luzes e aquecimento por voz em qualquer divisão. Um add-on do Home Assistant para o Emkay Home está a caminho.",
   f_note: "O Emkay Home está em alfa inicial, é livre e de código aberto (Apache 2.0) – OpenVoiceOS e HiveMind, sem alterações, com uma página por cima.",
 };
 
@@ -445,7 +445,7 @@ TEXTS.ca = {
   update_h: "Actualitzar i treure",
   update_p: "Torna a executar la mateixa línia per actualitzar – la configuració i els Emkay aparellats es conserven. <code class=\"inline\">… | bash -s -- --uninstall</code> el treu i pregunta abans d'esborrar dades.",
   ha_h: "Tens Home Assistant?",
-  ha_p: "Un complement de Home Assistant per a Emkay Home és en camí. I l'Emkay ja pot controlar el teu Home Assistant amb la skill de Home Assistant.",
+  ha_p: "A la pàgina de la casa, a <b>Home Assistant</b>: inicia la sessió a la pàgina de Home Assistant, i la casa i cada Emkay hi passen a ser dispositius (<a href=\"https://github.com/andlo/ha-ovos-integration\">integració OpenVoiceOS</a>), cada Emkay amb el seu volum, escolta activada o desactivada i «dir», i llums i calefacció amb la veu des de cada habitació. Un complement de Home Assistant per a Emkay Home és de camí.",
   f_source: "Emkay Home a GitHub",
   f_note: "Emkay Home és una alfa primerenca, lliure i de codi obert (Apache 2.0) – OpenVoiceOS i HiveMind, sense canvis, amb una pàgina a sobre.",
 };
@@ -491,7 +491,7 @@ TEXTS.gl = {
   update_h: "Actualizar e quitar",
   update_p: "Executa a mesma liña outra vez para actualizar – os teus axustes e os Emkay emparellados consérvanse. <code class=\"inline\">… | bash -s -- --uninstall</code> quítao e pregunta antes de borrar datos.",
   ha_h: "Tes Home Assistant?",
-  ha_p: "Vén de camiño un complemento de Home Assistant para Emkay Home. E Emkay xa pode controlar o teu Home Assistant coa skill de Home Assistant.",
+  ha_p: "Na páxina da casa, en <b>Home Assistant</b>: inicia sesión na propia páxina de Home Assistant, e a casa e cada Emkay pasan a ser dispositivos alí (<a href=\"https://github.com/andlo/ha-ovos-integration\">integración OpenVoiceOS</a>), cada Emkay co seu volume, escoita activada ou desactivada e «dicir», e luces e calefacción coa voz desde cada cuarto. Un complemento de Home Assistant para Emkay Home está en camiño.",
   f_source: "Emkay Home en GitHub",
   f_note: "Emkay Home está nunha alfa temperá, é libre e de código aberto (Apache 2.0) – OpenVoiceOS e HiveMind, sen cambios, cunha páxina enriba.",
 };
@@ -537,7 +537,7 @@ TEXTS.eu = {
   update_h: "Eguneratu eta kendu",
   update_p: "Exekutatu lerro bera berriro eguneratzeko – zure ezarpenak eta parekatutako Emkayak gordetzen dira. <code class=\"inline\">… | bash -s -- --uninstall</code> aginduak kentzen du eta galdetu egiten du datuak ezabatu aurretik.",
   ha_h: "Home Assistant baduzu?",
-  ha_p: "Emkay Home-rako Home Assistant gehigarri bat bidean dago. Eta Emkay-k dagoeneko kontrola dezake zure Home Assistant Home Assistant skillarekin.",
+  ha_p: "Etxearen orrian, <b>Home Assistant</b> atalean: hasi saioa Home Assistant-en orrian bertan, eta etxea eta Emkay bakoitza gailu bihurtuko dira han (<a href=\"https://github.com/andlo/ha-ovos-integration\">OpenVoiceOS integrazioa</a>), Emkay bakoitza bere bolumenarekin, entzutea piztu eta itzaltzearekin eta «esan»-ekin, eta argiak eta berokuntza ahotsez gela guztietatik. Emkay Home-rentzako Home Assistant gehigarri bat bidean da.",
   f_source: "Emkay Home GitHub-en",
   f_note: "Emkay Home alfa goiztiarra da, librea eta kode irekikoa (Apache 2.0) – OpenVoiceOS eta HiveMind, aldatu gabe, orri bat gainean dutela.",
 };
