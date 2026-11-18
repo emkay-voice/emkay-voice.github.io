@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emkay Capsule – a 3D-printable home for your phone</title>
+<meta name="description" content="Emkay Capsule is a 3D-printable shell that turns a phone into a small Emkay voice assistant for the kitchen counter, inspired by the 2018 Mycroft Mark II concept. A concept – not printed yet.">
+<meta name="theme-color" content="#05070a">
+<meta property="og:title" content="Emkay Capsule – a 3D-printable home for your phone">
+<meta property="og:description" content="Slide a phone in, plug in the charger, and Emkay stands on the counter. Inspired by the 2018 Mycroft Mark II concept.">
+<meta property="og:image" content="https://emkay.ai/capsule/img/og.jpg">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<!--
+  Emkay Capsule's page on emkay.ai (emkay.ai/capsule/): the idea, the
+  pictures, how it works and the files to print. The model, the STL files
+  and the render scripts live in emkay-voice/emkay-capsule; the downloads
+  here link straight to that repo (raw files and the zip of main), so a new
+  STL there is new here too.
+
+  The same look and the same language picker as emkay.ai's front page (and
+  the same remembered language, "emkay-site-lang"). Every text is in
+  capsule/texts.js, in Emkay's twelve languages; an element shows the text
+  of its data-t key. The pictures in img/ are the renders from the repo
+  (without the wordmark – the page has its own heading).
+-->
+<style>
+  :root { --bg: #05070a; --card: #141b24; --ink: #fff; --muted: #8a96a8; --line: #232c38;
+          --accent: #22a7f0; --accent-strong: #1478c8; --soft: #c7d0dc; --code: #0c1118; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  a { color: var(--accent); }
+  main { max-width: 980px; margin: 0 auto; padding: 0 22px 60px; }
+
+  .top { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; }
+  .top a { color: var(--soft); text-decoration: none; font-size: 15px; }
+  .top select { background: var(--card); color: var(--soft); border: 1px solid var(--line);
+                border-radius: 20px; padding: 6px 12px; font: inherit; font-size: 14px; }
+
+  /* hero: the big picture next to the name */
+  .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 34px; align-items: center; padding: 30px 0 6px; }
+  .hero img { width: 100%; height: auto; border-radius: 22px; display: block; }
+  h1 { font-weight: 300; letter-spacing: .3em; font-size: 42px; margin: 0; }
+  h1 small { display: block; letter-spacing: .55em; font-size: 15px; color: var(--muted); margin-top: 6px; }
+  .badge { display: inline-block; margin-top: 18px; padding: 5px 12px; border-radius: 20px; font-size: 14px;
+           color: #ffd479; background: #2a2210; border: 1px solid #5a4818; }
+  .tag { color: var(--soft); margin: 16px 0 24px; font-size: 20px; line-height: 1.45; }
+  .buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+  .open { display: inline-block; background: var(--accent); color: #fff; text-decoration: none;
+          padding: 13px 28px; border-radius: 40px; font-size: 17px; }
+  .open:hover { background: var(--accent-strong); }
+  .open.ghost { background: #1b2430; }
+  .open.ghost:hover { background: #253142; }
+
+  /* the three other pictures */
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 40px; }
+  .gallery figure { margin: 0; }
+  .gallery img { width: 100%; height: auto; border-radius: 16px; display: block; }
+  .gallery figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; text-align: center; }
+
+  h2 { font-weight: 500; font-size: 24px; margin: 48px 0 12px; }
+  .lead { color: var(--soft); margin: 0 0 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 4px 22px; }
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .cards .card { padding: 16px 20px; }
+  .cards h3 { margin: 0 0 6px; font-size: 17px; }
+  .cards p { margin: 0; color: var(--soft); font-size: 15px; }
+  .cards .icon { font-size: 26px; line-height: 1; margin-bottom: 8px; }
+  ol, ul { padding-left: 22px; }
+  li { margin: 8px 0; }
+
+  /* the parts to print: name, colour and tip, and its download */
+  .parts { display: grid; gap: 10px; }
+  .part { display: grid; grid-template-columns: 14px 1fr auto; gap: 14px; align-items: center;
+          background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  .part .dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid #556; }
+  .part b { display: block; font-weight: 600; font-size: 15px; }
+  .part span { color: var(--muted); font-size: 14px; }
+  .part a { font-size: 14px; white-space: nowrap; text-decoration: none; border: 1px solid var(--accent);
+            border-radius: 20px; padding: 5px 12px; }
+  .part a:hover { background: #0f2433; }
+  .warn { margin-top: 14px; padding: 12px 16px; border-radius: 12px; background: #2a2210; border: 1px solid #5a4818;
+          color: #ffe3a3; font-size: 15px; }
+  footer { color: var(--muted); font-size: 14px; text-align: center; margin-top: 56px; }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; gap: 22px; text-align: center; }
+    .buttons { justify-content: center; }
+    .gallery { grid-template-columns: 1fr; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main>
+<div class="top">
+  <a href="../" data-t="back"></a>
+  <select id="lang" aria-label="Language"></select>
+</div>
+
+<section class="hero">
+  <img src="img/hero.jpg" alt="Emkay Capsule with the Emkay face speaking" width="1000" height="1250">
+  <div>
+    <h1>EMKAY<small>CAPSULE</small></h1>
+    <span class="badge" data-t="concept"></span>
+    <p class="tag" data-t="tag"></p>
+    <div class="buttons">
+      <a class="open" href="https://github.com/emkay-voice/emkay-capsule/archive/refs/heads/main.zip" data-t="dl_all"></a>
+      <a class="open ghost" href="https://github.com/emkay-voice/emkay-capsule" data-t="github"></a>
+    </div>
+  </div>
+</section>
+
+<div class="gallery">
+  <figure><img src="img/front.jpg" alt="" loading="lazy" width="720" height="900"><figcaption data-t="cap_front"></figcaption></figure>
+  <figure><img src="img/side.jpg" alt="" loading="lazy" width="720" height="900"><figcaption data-t="cap_side"></figcaption></figure>
+  <figure><img src="img/exploded.jpg" alt="" loading="lazy" width="720" height="900"><figcaption data-t="cap_exploded"></figcaption></figure>
+</div>
+
+<h2 data-t="idea_h"></h2>
+<div class="card">
+  <p data-t="idea_p1"></p>
+  <p data-t="idea_p2"></p>
+</div>
+
+<h2 data-t="how_h"></h2>
+<div class="cards">
+  <div class="card"><div class="icon">📱</div><h3 data-t="h_cassette_h"></h3><p data-t="h_cassette_p"></p></div>
+  <div class="card"><div class="icon">🖼️</div><h3 data-t="h_screen_h"></h3><p data-t="h_screen_p"></p></div>
+  <div class="card"><div class="icon">🔊</div><h3 data-t="h_sound_h"></h3><p data-t="h_sound_p"></p></div>
+  <div class="card"><div class="icon">🔌</div><h3 data-t="h_power_h"></h3><p data-t="h_power_p"></p></div>
+</div>
+
+<!-- The parts: each links straight to its STL in the repo. -->
+<h2 data-t="print_h"></h2>
+<p class="lead" data-t="print_lead"></p>
+<div class="parts">
+  <div class="part"><i class="dot" style="background:#b9b4ad"></i>
+    <div><b data-t="p_body"></b><span data-t="p_body_tip"></span></div>
+    <a href="https://github.com/emkay-voice/emkay-capsule/raw/main/stl/emkay_capsule_body.stl" data-t="stl"></a></div>
+  <div class="part"><i class="dot" style="background:#f2f2f0"></i>
+    <div><b data-t="p_cap"></b><span data-t="p_white_tip"></span></div>
+    <a href="https://github.com/emkay-voice/emkay-capsule/raw/main/stl/emkay_capsule_cap.stl" data-t="stl"></a></div>
+  <div class="part"><i class="dot" style="background:#f2f2f0"></i>
+    <div><b data-t="p_base"></b><span data-t="p_white_tip"></span></div>
+    <a href="https://github.com/emkay-voice/emkay-capsule/raw/main/stl/emkay_capsule_base.stl" data-t="stl"></a></div>
+  <div class="part"><i class="dot" style="background:#111"></i>
+    <div><b data-t="p_pixel7"></b><span data-t="p_insert_tip"></span></div>
+    <a href="https://github.com/emkay-voice/emkay-capsule/raw/main/stl/insert_pixel7.stl" data-t="stl"></a></div>
+  <div class="part"><i class="dot" style="background:#111"></i>
+    <div><b data-t="p_pixel6"></b><span data-t="p_insert_tip"></span></div>
+    <a href="https://github.com/emkay-voice/emkay-capsule/raw/main/stl/insert_pixel6.stl" data-t="stl"></a></div>
+  <div class="part"><i class="dot" style="background:#111"></i>
+    <div><b data-t="p_generic"></b><span data-t="p_insert_tip"></span></div>
+    <a href="https://github.com/emkay-voice/emkay-capsule/raw/main/stl/insert_generic.stl" data-t="stl"></a></div>
+</div>
+<div class="warn" data-t="warn"></div>
+
+<h2 data-t="need_h"></h2>
+<div class="card">
+  <ul>
+    <li data-t="need_1"></li>
+    <li data-t="need_2"></li>
+    <li data-t="need_3"></li>
+    <li data-t="need_4"></li>
+  </ul>
+</div>
+
+<h2 data-t="phone_h"></h2>
+<div class="card">
+  <ol>
+    <li data-t="phone_1"></li>
+    <li data-t="phone_2"></li>
+    <li data-t="phone_3"></li>
+  </ol>
+</div>
+
+<h2 data-t="yours_h"></h2>
+<div class="card"><p data-t="yours_p"></p></div>
+
+<footer>
+  <p><a href="https://github.com/emkay-voice/emkay-capsule" data-t="f_source"></a> ·
+     <a href="../">emkay.ai</a> ·
+     <a href="https://openvoiceos.org">OpenVoiceOS</a> ·
+     <a href="https://github.com/OscillateLabsLLC/ovos-visage">ovos-visage</a></p>
+  <p data-t="f_note"></p>
+</footer>
+</main>
+
+<script src="texts.js"></script>
+<script>
+// The page's language, as on the front page: ?lang=, then the one picked
+// before (shared with the front page), then the browser's; English as fallback.
+const LANGS = Object.keys(TEXTS);
+function pickLang() {
+  const q = new URLSearchParams(location.search).get("lang");
+  let saved = null;
+  try { saved = localStorage.getItem("emkay-site-lang"); } catch {}
+  for (const want of [q, saved, ...(navigator.languages || [navigator.language])]) {
+    if (!want) continue;
+    const w = want.toLowerCase();
+    const hit = LANGS.find((l) => l.toLowerCase() === w) || LANGS.find((l) => l.split("-")[0].toLowerCase() === w.split("-")[0]);
+    if (hit) return hit;
+  }
+  return "en";
+}
+let lang = pickLang();
+const t = (key) => TEXTS[lang][key] ?? TEXTS.en[key];
+
+function render() {
+  document.documentElement.lang = lang;
+  document.title = t("title");
+  document.querySelector('meta[name="description"]').content = t("description");
+  // texts may hold <b>, <code> and links: they are ours, from texts.js
+  document.querySelectorAll("[data-t]").forEach((el) => { el.innerHTML = t(el.dataset.t); });
+}
+
+const picker = document.getElementById("lang");
+for (const l of LANGS) picker.append(new Option(TEXTS[l]._name, l));
+picker.value = lang;
+picker.onchange = () => {
+  lang = picker.value;
+  try { localStorage.setItem("emkay-site-lang", lang); } catch {}
+  render();
+};
+render();
+</script>
+</body>
+</html>
