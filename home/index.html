@@ -53,6 +53,15 @@
                 font: inherit; font-size: 15px; cursor: pointer; white-space: nowrap; }
   .cmd button:hover { background: var(--accent-strong); }
   .note { color: var(--muted); font-size: 14px; margin: 14px auto 0; max-width: 640px; }
+  /* "no curl?": folded away under the line */
+  .prereq { max-width: 640px; margin: 10px auto 0; text-align: left; font-size: 14px; color: var(--soft); }
+  .prereq summary { cursor: pointer; color: var(--muted); text-align: center; list-style-position: inside; }
+  .prereq[open] { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px 16px 6px; }
+  .prereq table { width: 100%; border-collapse: collapse; margin: 6px 0; }
+  .prereq td { padding: 6px 8px 6px 0; border-top: 1px solid var(--line); vertical-align: top; }
+  .prereq td:first-child { color: var(--muted); width: 38%; }
+  .prereq code { font: 13px/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace; color: #fff; word-break: break-all; user-select: all; }
+  .prereq .small { font-size: 13px; color: var(--muted); }
 
   h2 { font-weight: 500; font-size: 24px; margin: 48px 0 12px; }
   .lead { color: var(--soft); margin: 0 0 16px; }
@@ -109,6 +118,20 @@
     <button id="copy" data-t="copy"></button>
   </div>
   <p class="note" data-t="cmd_note"></p>
+  <!-- the installer needs curl (and bash, sudo unless root); many server
+       images have no curl: folded away, for those who need it -->
+  <details class="prereq">
+    <summary data-t="prereq_sum"></summary>
+    <p data-t="prereq_p"></p>
+    <table>
+      <tr><td>Debian · Ubuntu · Raspberry Pi OS · Proxmox</td><td><code>sudo apt update &amp;&amp; sudo apt install -y curl</code></td></tr>
+      <tr><td>Fedora · RHEL · Rocky · Alma</td><td><code>sudo dnf install -y curl</code></td></tr>
+      <tr><td>Arch · Manjaro</td><td><code>sudo pacman -Sy --needed curl</code></td></tr>
+      <tr><td>openSUSE</td><td><code>sudo zypper install -y curl</code></td></tr>
+      <tr><td>Alpine</td><td><code>apk add curl bash</code></td></tr>
+    </table>
+    <p class="small" data-t="prereq_root"></p>
+  </details>
 </section>
 
 <h2 data-t="what_h"></h2>
