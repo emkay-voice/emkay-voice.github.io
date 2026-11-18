@@ -77,6 +77,12 @@
   li { margin: 6px 0; }
   .langs { color: var(--muted); }
   .card.home .open { margin: 4px 0 8px; }
+  /* Emkay Capsule: a picture next to the text */
+  .card.capsule { display: grid; grid-template-columns: 160px 1fr; gap: 20px; align-items: center; padding: 16px 22px; }
+  .card.capsule img { width: 160px; height: auto; border-radius: 12px; display: block; }
+  .card.capsule p { margin: 0 0 10px; }
+  .card.capsule .open { margin: 4px 0 4px; }
+  @media (max-width: 560px) { .card.capsule { grid-template-columns: 1fr; } .card.capsule img { width: 100%; max-width: 260px; margin: 0 auto; } }
   footer { color: var(--muted); font-size: 14px; text-align: center; margin-top: 56px; }
 </style>
 </head>
@@ -182,6 +188,17 @@
 <div class="card home">
   <p data-t="home_p"></p>
   <p><a class="open" href="home/" data-t="home_btn"></a></p>
+</div>
+
+<!-- Emkay Capsule: a 3D-printable home for a phone with Emkay (a concept
+     so far); its own page is capsule/ -->
+<h2 data-t="capsule_h"></h2>
+<div class="card capsule">
+  <a href="capsule/"><img src="capsule/img/front.jpg" alt="Emkay Capsule" loading="lazy" width="720" height="900"></a>
+  <div>
+    <p data-t="capsule_p"></p>
+    <p><a class="open ghost" href="capsule/" data-t="capsule_btn"></a></p>
+  </div>
 </div>
 
 <footer>
