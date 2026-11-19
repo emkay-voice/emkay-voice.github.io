@@ -29,6 +29,11 @@
   h1 { font-weight: 300; letter-spacing: .3em; font-size: 46px; margin: 0; }
   .tag { color: var(--soft); margin: 14px 0 28px; font-size: 21px; line-height: 1.45; }
   .buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+  /* privacy next to ease, right under the tag line */
+  .pills { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: -14px 0 26px; }
+  .pills li { margin: 0; line-height: 1.4; border: 1px solid #2a313b; border-radius: 999px; padding: 5px 13px 5px 11px; font-size: 14px;
+    color: var(--soft); display: flex; align-items: center; gap: 7px; }
+  .pills li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #22a7f0; }
   .open { display: inline-block; background: var(--accent); color: #fff; text-decoration: none;
           padding: 15px 34px; border-radius: 40px; font-size: 18px; }
   .open:hover { background: var(--accent-strong); }
@@ -37,7 +42,7 @@
   .note { color: var(--muted); font-size: 14px; margin-top: 16px; }
   @media (max-width: 760px) {
     .hero { grid-template-columns: 1fr; text-align: center; padding-top: 16px; }
-    .buttons { justify-content: center; }
+    .buttons, .pills { justify-content: center; }
     .phone-wrap { order: -1; }
     .phone { width: 190px; }
   }
@@ -96,6 +101,7 @@
   <div>
     <h1>EMKAY</h1>
     <p class="tag" data-t="tag"></p>
+    <ul class="pills" data-t="pills"></ul>
     <div class="buttons">
       <a class="open" href="https://app.emkay.ai/" data-t="open"></a>
       <a class="open ghost" href="https://store.emkay.ai/" data-t="store"></a>
