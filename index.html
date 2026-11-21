@@ -71,7 +71,7 @@
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 4px 22px; }
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
   .cards.two { grid-template-columns: repeat(2, 1fr); }      /* four cards: 2 x 2 */
-  .cards.four { grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)); }  /* eight: 4 x 2 */
+  .cards.four { grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)); }  /* twelve: 4 x 3 */
   @media (max-width: 640px) { .cards.two { grid-template-columns: 1fr; } }
   .cards .card { padding: 16px 20px; }
   .cards h3 { margin: 0 0 6px; font-size: 17px; }
@@ -171,8 +171,24 @@
   <div class="card"><h3 data-t="w_store_h"></h3><p data-t="w_store_p"></p></div>
   <div class="card"><h3 data-t="w_hw_h"></h3><p data-t="w_hw_p"></p></div>
   <div class="card"><h3 data-t="w_kiosk_h"></h3><p data-t="w_kiosk_p"></p></div>
+  <div class="card"><h3 data-t="w_read_h"></h3><p data-t="w_read_p"></p></div>
+  <div class="card"><h3 data-t="w_about_h"></h3><p data-t="w_about_p"></p></div>
+  <div class="card"><h3 data-t="w_tools_h"></h3><p data-t="w_tools_p"></p></div>
+  <div class="card"><h3 data-t="w_fast_h"></h3><p data-t="w_fast_p"></p></div>
 </div>
 <p class="langs" data-t="langs"></p>
+
+<!-- Music: ovos-skill-karaoke and ovos-skill-jamband, played on
+     ovos-phal-plugin-midi - all made on the device -->
+<h2 data-t="music_h"></h2>
+<p class="lead" data-t="music_lead"></p>
+<div class="cards two">
+  <div class="card"><div class="icon">🎤</div><h3 data-t="mu_sing_h"></h3><p data-t="mu_sing_p"></p></div>
+  <div class="card"><div class="icon">🎶</div><h3 data-t="mu_kar_h"></h3><p data-t="mu_kar_p"></p></div>
+  <div class="card"><div class="icon">🥁</div><h3 data-t="mu_jam_h"></h3><p data-t="mu_jam_p"></p></div>
+  <div class="card"><div class="icon">🎹</div><h3 data-t="mu_midi_h"></h3><p data-t="mu_midi_p"></p></div>
+</div>
+<p class="langs" data-t="music_note"></p>
 
 <h2 data-t="start_h"></h2>
 <div class="card">
