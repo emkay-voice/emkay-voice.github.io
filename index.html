@@ -77,6 +77,10 @@
   .cards h3 { margin: 0 0 6px; font-size: 17px; }
   .cards p { margin: 0; color: var(--soft); font-size: 15px; }
   .cards .icon { font-size: 26px; line-height: 1; margin-bottom: 8px; }
+  /* skills from the store: a link at the foot of each card */
+  .cards.skills .card { display: flex; flex-direction: column; }
+  .cards.skills .get { margin-top: auto; padding-top: 10px; font-size: 14px; text-decoration: none; }
+  .cards.skills .get:hover { text-decoration: underline; }
   .say { color: #fff; font-style: italic; }
   ol, ul { padding-left: 22px; }
   li { margin: 6px 0; }
@@ -178,17 +182,25 @@
 </div>
 <p class="langs" data-t="langs"></p>
 
-<!-- Music: ovos-skill-karaoke and ovos-skill-jamband, played on
-     ovos-phal-plugin-midi - all made on the device -->
-<h2 data-t="music_h"></h2>
-<p class="lead" data-t="music_lead"></p>
-<div class="cards two">
-  <div class="card"><div class="icon">🎤</div><h3 data-t="mu_sing_h"></h3><p data-t="mu_sing_p"></p></div>
-  <div class="card"><div class="icon">🎶</div><h3 data-t="mu_kar_h"></h3><p data-t="mu_kar_p"></p></div>
-  <div class="card"><div class="icon">🥁</div><h3 data-t="mu_jam_h"></h3><p data-t="mu_jam_p"></p></div>
-  <div class="card"><div class="icon">🎹</div><h3 data-t="mu_midi_h"></h3><p data-t="mu_midi_p"></p></div>
+<!-- Skills made in the Emkay project (emkay-voice), each linked to its
+     page in the store: store.emkay.ai/?skill=<package> -->
+<h2 data-t="sk_h"></h2>
+<p class="lead" data-t="sk_lead"></p>
+<div class="cards skills">
+  <div class="card"><div class="icon">📖</div><h3 data-t="sk_tales_h"></h3><p data-t="sk_tales_p"></p>
+    <a class="get" href="https://store.emkay.ai/?skill=ovos-skill-andrew-lang-tales" data-t="sk_get"></a></div>
+  <div class="card"><div class="icon">📚</div><h3 data-t="sk_books_h"></h3><p data-t="sk_books_p"></p>
+    <a class="get" href="https://store.emkay.ai/?skill=ovos-skill-opds-books" data-t="sk_get"></a></div>
+  <div class="card"><div class="icon">🎸</div><h3 data-t="sk_teach_h"></h3><p data-t="sk_teach_p"></p>
+    <a class="get" href="https://store.emkay.ai/?skill=ovos-skill-music-teacher" data-t="sk_get"></a></div>
+  <div class="card"><div class="icon">🧠</div><h3 data-t="sk_wiki_h"></h3><p data-t="sk_wiki_p"></p>
+    <a class="get" href="https://store.emkay.ai/?skill=ovos-skill-wiki-offline" data-t="sk_get"></a></div>
+  <div class="card"><div class="icon">🚀</div><h3 data-t="sk_scifi_h"></h3><p data-t="sk_scifi_p"></p>
+    <a class="get" href="https://store.emkay.ai/?skill=ovos-skill-365tomorrows-stories" data-t="sk_get"></a></div>
+  <div class="card"><div class="icon">🎤</div><h3 data-t="sk_music_h"></h3><p data-t="sk_music_p"></p>
+    <a class="get" href="https://store.emkay.ai/?skill=ovos-skill-karaoke" data-t="sk_get"></a></div>
 </div>
-<p class="langs" data-t="music_note"></p>
+<p class="langs" data-t="sk_note"></p>
 
 <h2 data-t="start_h"></h2>
 <div class="card">
