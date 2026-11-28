@@ -67,6 +67,8 @@
   @media (prefers-reduced-motion: reduce) { .phone .bars rect { animation: none; } }
 
   h2 { font-weight: 500; font-size: 24px; margin: 48px 0 12px; }
+  .free { display: inline-block; margin: 0 0 16px; padding: 10px 18px; border: 1px solid var(--line); background: var(--card); border-radius: 40px; color: #fff; }
+  .free::before { content: "✓ "; color: var(--accent); }
   .lead { color: var(--soft); margin: 0 0 16px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 4px 22px; }
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
@@ -258,18 +260,21 @@
   </div>
 </div>
 
-<!-- Emkay Dev: make your own skill in VS Code in the browser, with Emkay
-     next to your code; its own site is dev.emkay.ai -->
+<!-- Emkay Dev: two ways to your own skill, Emkay Blocks and Emkay Code,
+     both on dev.emkay.ai and both just in the browser -->
 <h2 data-t="dev_h"></h2>
 <p class="lead" data-t="dev_p"></p>
+<p class="free" data-t="dev_free"></p>
 <div class="cards two">
-  <div class="card"><div class="icon">🧩</div><h3 data-t="dev_tpl_h"></h3><p data-t="dev_tpl_p"></p></div>
+  <div class="card"><div class="icon">🧩</div><h3>Emkay Blocks</h3><p data-t="dev_blocks_p"></p>
+    <p><a class="open" href="https://dev.emkay.ai/blocks/" data-t="dev_blocks_btn"></a></p></div>
+  <div class="card"><div class="icon">⌨️</div><h3>Emkay Code</h3><p data-t="dev_code_p"></p>
+    <p><a class="open" href="https://dev.emkay.ai/code/" data-t="dev_code_btn"></a></p></div>
   <div class="card"><div class="icon">💬</div><h3 data-t="dev_run_h"></h3><p data-t="dev_run_p"></p></div>
-  <div class="card"><div class="icon">✅</div><h3 data-t="dev_test_h"></h3><p data-t="dev_test_p"></p></div>
-  <div class="card"><div class="icon">🌐</div><h3 data-t="dev_any_h"></h3><p data-t="dev_any_p"></p></div>
+  <div class="card"><div class="icon">↔️</div><h3 data-t="dev_both_h"></h3><p data-t="dev_both_p"></p></div>
 </div>
 <p class="langs" data-t="dev_note"></p>
-<p><a class="open" href="https://dev.emkay.ai/" data-t="dev_btn"></a></p>
+<p><a class="open ghost" href="https://dev.emkay.ai/" data-t="dev_btn"></a></p>
 
 <footer>
   <p><a href="https://github.com/emkay-voice/emkay" data-t="f_source"></a> ·
